@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+    <div id="toast">
+        <!-- Success -->
+        <!-- <div class="toast toast--success">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Success</h3>
+                <p class="toast__message">Tuyệt vời. Bạn đã hoàn thành phần thi</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+
+        </div> -->    
+        <!-- Info -->
+        <!-- <div class="toast toast--info">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Info</h3>
+                <p class="toast__message">Bạn cho tôi xin info đi</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+
+        </div> -->
+
+        <!-- Warning -->
+        <!-- <div class="toast toast--warning">
+            <div class="toast__icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Warning</h3>
+                <p class="toast__message">Ôi không!!! Sắp có lỗi xảy ra rồi</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+
+        </div> -->
+
+        <!-- Error -->
+        <!-- <div class="toast toast--error">
+            <div class="toast__icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                
+            </div>
+
+            <div class="toast__body">
+                <h3 class="toast__title">Error</h3>
+                <p class="toast__message">Oh no!!! Bạn đang gặp phải lỗi ở đâu đó</p>
+            </div>
+
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+
+        </div> -->       
+    </div>
+
+    <!--
+    <div>
+        <button class="btn btn--size--s btn--success">GO TO NEXT APPROVAL</button>
+        <button class="btn btn--size--s btn--warning">OK</button>
+        <button class="btn btn--size--s btn--danger">TRY AGAIN</button>
+    </div>
+
+    <div>
+        <button class="btn btn--success">GO TO NEXT APPROVAL</button>
+        <button class="btn btn--warning">OK</button>
+        <button class="btn btn--danger btn--disable">TRY AGAIN</button>
+    </div>
+     -->
+     <div>
+        <button onclick="showSuccessToast();" class="btn btn--size--l btn--success">GO TO NEXT APPROVAL</button>
+        <button onclick="showWarningToast();" class="btn btn--size--l btn--warning">OK</button>
+        <button onclick="showErrorToast();" class="btn btn--size--l btn--danger">TRY AGAIN</button>
+    </div>
+
+    <script>
+        function toast({ title = '', message = '', type = 'info', duration = 3000 }) {
+            const main = document.getElementById('toast');
+            if (main) {
+                const toast = document.createElement('div');
+                // auto remove
+                const autoRemoveId = setTimeout(function() {
+                    main.removeChild(toast);
+                }, duration + 1000)
+
+                // remove when click
+                toast.onclick = function (e) {
+                    if (e.target.closest('.toast__close')) {
+                        main.removeChild(toast);
+                        clearTimeout(autoRemoveId);
+                    }
+                }
+
+                const icons = {
+                    success: 'fa-solid fa-circle-check',
+                    info: 'fa-solid fa-circle-info',
+                    warning: 'fa-solid fa-triangle-exclamation',
+                    error: 'fa-solid fa-circle-info',
+                };
+                const icon = icons[type];
+                const delay = (duration / 1000).toFixed(2);
+
+                toast.classList.add('toast', `toast--${type}`);
+                toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+                toast.innerHTML = `
+                    <div class="toast__icon">
+                        <i class="${icon}"></i>
+                    </div>
+        
+                    <div class="toast__body">
+                        <h3 class="toast__title">${title}</h3>
+                        <p class="toast__message">${message}</p>
+                    </div>
+        
+                    <div class="toast__close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                `;
+                main.appendChild(toast);
+            }
+        }
+        function showSuccessToast() {
+            toast({
+                title: 'Success',
+                message: 'Tuyệt vời. Bạn đã hoàn thành phần thi',
+                type: 'success',
+                duration: 5000
+            });
+        }
+
+        function showWarningToast() {
+            toast({
+                title: 'Warning',
+                message: 'Ôi không!!! Sắp có lỗi xảy ra rồi',
+                type: 'warning',
+                duration: 5000
+            });
+        }
+
+        function showErrorToast() {
+            toast({
+                title: 'Error',
+                message: 'Oh no!!! Bạn đang gặp phải lỗi ở đâu đó',
+                type: 'error',
+                duration: 5000
+            });
+        } 
+    </script>
+
+</body>
+</html>
